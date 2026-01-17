@@ -1,5 +1,10 @@
-<%= simple_form_for [@list, @bookmark] do |f| %>
-  <%= f.association :movie, collection: Movie.all.order(:title) %>
-  <%= f.input :comment %>
-  <%= f.submit "Add movie", class: "btn btn-primary" %>
-<% end %>
+<div class="container py-5">
+  <h1>Create a new list</h1>
+
+  <%= simple_form_for @list do |f| %>
+    <%= f.input :name, placeholder: "Enter list name" %>
+    <%= f.submit "Create list", class: "btn btn-primary" %>
+  <% end %>
+
+  <%= link_to "Cancel", lists_path %>
+</div>

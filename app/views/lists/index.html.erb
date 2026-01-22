@@ -1,10 +1,42 @@
-<h1>Movies Lists:</h1>
+<div class="container py-5">
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <h1 class="mb-0">My Movie Lists</h1>
+    <%= link_to "Create new list", new_list_path, class: "btn btn-success shadow-sm" %>
+  </div>
 
-<%= cl_image_tag("bjkhxegcjtmc8jdwemmo",
-      width: 400, height: 300, crop: :fill) %>
+  <div class="row">
+    <% @lists.each do |list| %>
+      <div class="col-12 col-sm-6 col-md-4 mb-4">
+        <div class="card h-100 shadow-sm border-0 transition-card">
 
-<ul>
-  <% @lists.each do |list| %>
-    <li><%= link_to list.name, list_path(list) %></li>
-  <% end %>
-</ul>
+          <% if list.photo.attached? %>
+            <%= cl_image_tag list.photo.key, height: 200, width: 400, crop: :fill, class: "card-img-top" %>
+          <% else %>
+            <%= cl_image_tag("bjkhxegcjtmc8jdwemmo", height: 200, width: 400, crop: :fill, class: "card-img-top") %>
+          <% end %>
+
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title fw-bold">
+              <%= list.name %>
+            </h5>
+            <p class="card-text text-muted flex-grow-1">
+              <%= list.movies.count %> movies saved in this list.
+            </p>
+            <%= link_to "View Details", list_path(list), class: "btn btn-outline-primary btn-sm mt-auto" %>
+          </div>
+
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<style>
+  /* A little extra flair to make the cards pop */
+  .transition-card {
+    transition: transform 0.3s ease;
+  }
+  .transition-card:hover {
+    transform: translateY(-5px);
+  }
+</style>
